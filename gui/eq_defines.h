@@ -18,17 +18,18 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-//EQ10Q definitions
-//TODO: Aquestes seran les definicions definitives del EQ tan de GUI com del audio dsp.
-//La idea es fer desapareixer el header EQ_TYPES.H quan s'implementi la compilació amb CMake a tot el projecte (DSP inclos)
-//TODO: aquest fitxer es un copy paste de eq.h elimnnant la inclusio del eq_types
+// EQ10Q definitions
+// TODO: Aquestes seran les definicions definitives del EQ tan de GUI com del audio dsp.
+// La idea es fer desapareixer el header EQ_TYPES.H quan s'implementi la compilació amb CMake a tot
+// el projecte (DSP inclos)
+// TODO: aquest fitxer es un copy paste de eq.h elimnnant la inclusio del eq_types
 #ifndef EQ_GUI_DEFINES_H
-  #define EQ_GUI_DEFINES_H
-#define EQ_BYPASS    0
-#define EQ_INGAIN    1
-#define EQ_OUTGAIN   2
+#define EQ_GUI_DEFINES_H
+#define EQ_BYPASS 0
+#define EQ_INGAIN 1
+#define EQ_OUTGAIN 2
 
-#define PORT_OFFSET  3
+#define PORT_OFFSET 3
 
-#define FFT_N 4096 //FFT sample size, must be a power of 2
+#define FFT_N 4096  // FFT sample size, must be a power of 2
 #endif

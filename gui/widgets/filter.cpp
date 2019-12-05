@@ -26,11 +26,10 @@ This file contains the filter definitions
 
 #include "filter.h"
 
-//Convert int  to FilterType
-FilterType int2FilterType(int iType)
-{
-  FilterType f;
-  f = (FilterType)iType;
+// Convert int  to FilterType
+FilterType int2FilterType(int iType) {
+    FilterType f;
+    f = (FilterType)iType;
 
-  return f;
+    return f;
 }

@@ -22,45 +22,41 @@
 This file contains a VU meter definitions
 ****************************************************************************/
 
-#include <stdint.h>
 #include <math.h>
+#include <stdint.h>
 
-#ifndef  VU_H
-  #define VU_H
+#ifndef VU_H
+#define VU_H
 
-typedef struct
-{
-  float vu_value, vu_output, vu_max, m_min, m_decay;
-}Vu;
+typedef struct {
+    float vu_value, vu_output, vu_max, m_min, m_decay;
+} Vu;
 
-//Initialize the VU meter
+// Initialize the VU meter
 Vu *VuInit(double rate);
 
-//Destroy a Vu instance
+// Destroy a Vu instance
 void VuClean(Vu *vu);
 
-//Clear the VU
-static inline void resetVU(Vu *vu)
-{
-  vu->vu_max = 0.0;
-  vu->vu_value = 0.0;
+// Clear the VU
+static inline void resetVU(Vu *vu) {
+    vu->vu_max = 0.0;
+    vu->vu_value = 0.0;
 }
 
-//Inputs a sample to VU
-static inline void SetSample(Vu *vu, float sample)
-{
-  vu->vu_value = fabsf(sample);
-  vu->vu_max = vu->vu_value > vu->vu_max ? vu->vu_value :  vu->vu_max;
+// Inputs a sample to VU
+static inline void SetSample(Vu *vu, float sample) {
+    vu->vu_value = fabsf(sample);
+    vu->vu_max = vu->vu_value > vu->vu_max ? vu->vu_value : vu->vu_max;
 }
 
-//Compute the VU's
-static inline float ComputeVu(Vu *vu, uint32_t nframes)
-{
-  const float fVuOut = vu->vu_max > vu->m_min ? vu->vu_max : 0;
-      if (vu->vu_max > vu->m_min)
-		vu->vu_max *= pow(vu->m_decay, nframes);  ///TODO: estas perdent rendiment amb akest pow!!!
-      else
-	vu->vu_max = 0.0;
-  return fVuOut;
+// Compute the VU's
+static inline float ComputeVu(Vu *vu, uint32_t nframes) {
+    const float fVuOut = vu->vu_max > vu->m_min ? vu->vu_max : 0;
+    if (vu->vu_max > vu->m_min)
+        vu->vu_max *= pow(vu->m_decay, nframes);  /// TODO: estas perdent rendiment amb akest pow!!!
+    else
+        vu->vu_max = 0.0;
+    return fVuOut;
 }
 #endif

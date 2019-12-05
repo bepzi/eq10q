@@ -19,15 +19,15 @@
  ***************************************************************************/
 
 #ifndef GUI_CONSTANTS_H
-  #define GUI_CONSTANTS_H
- 
+#define GUI_CONSTANTS_H
+
 #define GAIN_TYPE 0
 #define FREQ_TYPE 1
-#define Q_TYPE    2
+#define Q_TYPE 2
 #define FILTER_TYPE 3
 #define ONOFF_TYPE 4
 
-//Filter default values
+// Filter default values
 #define GAIN_MIN -20.0
 #define GAIN_MAX 20.0
 #define FREQ_MIN 20.0
@@ -36,7 +36,7 @@
 #define PEAK_Q_MAX 16.0
 #define HPF_LPF_Q_DEFAULT 0.7
 #define NOTCH_Q_DEFAULT 2
-#define HIGH_LOW_SHELF_Q_DEFAULT  0.7
+#define HIGH_LOW_SHELF_Q_DEFAULT 0.7
 #define PEAK_Q_DEFAULT 2
 #define GAIN_DEFAULT 0.0
 

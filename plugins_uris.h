@@ -21,7 +21,7 @@
 #ifndef PLUGINS_URIS_H
 #define PLUGINS_URIS_H
 
-//Plugin uris
+// Plugin uris
 #define EQ1QM_URI "http://eq10q.sourceforge.net/eq/eq1qm"
 #define EQ1QS_URI "http://eq10q.sourceforge.net/eq/eq1qs"
 #define EQ4QM_URI "http://eq10q.sourceforge.net/eq/eq4qm"
@@ -39,7 +39,7 @@
 #define LR2MS_URI "http://eq10q.sourceforge.net/matrix_lr2ms"
 #define MS2LR_URI "http://eq10q.sourceforge.net/matrix_ms2lr"
 
-//Plugins GUI uris
+// Plugins GUI uris
 #define EQ10Q_GUI_URI "http://eq10q.sourceforge.net/eq/eq10q/gui"
 #define DYNAMICS_GUI_URI "http://eq10q.sourceforge.net/dynamics/gui"
 #define MIDSIDEMAT_GUI_URI "http://eq10q.sourceforge.net/matrix_ms/gui"

@@ -26,24 +26,21 @@ This file contains a VU meter implementation
 //#include <stdio.h>
 #include <stdlib.h>
 
-//Constant to dBu conversion is sqrt(2)
+// Constant to dBu conversion is sqrt(2)
 #define CONSTANT_VU 1.4142136
 
-//Initialize the VU meter
-Vu *VuInit(double rate)
-{
-  Vu *vu = (Vu *)malloc(sizeof(Vu));
+// Initialize the VU meter
+Vu *VuInit(double rate) {
+    Vu *vu = (Vu *)malloc(sizeof(Vu));
 
-  vu->vu_value = 0.0;
-  vu->vu_max = 0.0;
-  
-  vu->m_min = (1.0 / 256);
-  vu->m_decay = exp( -1.0 / rate);
-  
-  return vu;
+    vu->vu_value = 0.0;
+    vu->vu_max = 0.0;
+
+    vu->m_min = (1.0 / 256);
+    vu->m_decay = exp(-1.0 / rate);
+
+    return vu;
 }
 
-//Destroy a Vu instance
-void VuClean(Vu *vu){
-  free(vu);
-}
+// Destroy a Vu instance
+void VuClean(Vu *vu) { free(vu); }

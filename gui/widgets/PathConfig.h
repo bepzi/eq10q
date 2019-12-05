@@ -18,10 +18,10 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-//Defines the install path for eq10q gui acording cmake definitions
+// Defines the install path for eq10q gui acording cmake definitions
 #ifndef EQ10Q_PATH_CONFIG_H
 #define EQ10Q_PATH_CONFIG_H
-  
+
 #define EQ10Q_GUI_PATH "/home/sapista/.lv2/sapistaEQ.lv2/gui/"
- 
+
 #endif

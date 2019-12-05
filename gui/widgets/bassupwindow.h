@@ -19,22 +19,21 @@
  ***************************************************************************/
 
 #ifndef BASSUP_MAIN_WIN_H
-  #define BASSUP_MAIN_WIN_H
-
-#include <iostream>
-#include <string>
+#define BASSUP_MAIN_WIN_H
 
 #include <gtkmm/alignment.h>
 #include <gtkmm/box.h>
 #include <gtkmm/image.h>
 
 #include <cmath>
+#include <iostream>
+#include <string>
 
-//LV2 UI header
+// LV2 UI header
 #include <lv2/lv2plug.in/ns/extensions/ui/ui.h>
 
-#include "mainwidget.h"
 #include "knob2.h"
+#include "mainwidget.h"
 
 #define PORT_OUTPUT 0
 #define PORT_INPUT 1
@@ -42,17 +41,16 @@
 
 using namespace sigc;
 
-class BassUpMainWindow : public MainWidget
-{
-  public:
+class BassUpMainWindow : public MainWidget {
+public:
     BassUpMainWindow(const char *uri, std::string bundlePath);
-    virtual ~BassUpMainWindow();   
-    
+    virtual ~BassUpMainWindow();
+
     // Informing GUI about changes in the control ports
-    void gui_port_event(LV2UI_Handle ui, uint32_t port, uint32_t buffer_size, uint32_t format, const void * buffer)
-    {
-      float data = * static_cast<const float*>(buffer);
-      
+    void gui_port_event(LV2UI_Handle ui, uint32_t port, uint32_t buffer_size, uint32_t format,
+                        const void *buffer) {
+        float data = *static_cast<const float *>(buffer);
+
         // Checking if params are the same as specified in the LV2 documentation
         if (format != 0) {
             return;
@@ -62,29 +60,28 @@ class BassUpMainWindow : public MainWidget
         }
 
         // Updating values in GUI ========================================================
-        switch (port)
-        {
-          case PORT_AMOUNT:
-            m_Amount->set_value(data);
-          break;
-        }               
+        switch (port) {
+            case PORT_AMOUNT:
+                m_Amount->set_value(data);
+                break;
+        }
     }
 
     LV2UI_Controller controller;
     LV2UI_Write_Function write_function;
 
-  protected:
+protected:
     KnobWidget2 *m_Amount;
-    Gtk::HBox m_Box;       
+    Gtk::HBox m_Box;
     Gtk::Alignment m_MainWidgetAlign, m_KnobAlign;
     Gtk::Image *image_logo;
-        
-    //Signal Handlers
+
+    // Signal Handlers
     void onAmountChange();
-    
-  private:
+
+private:
     std::string m_pluginUri;
-    std::string m_bundlePath;  
+    std::string m_bundlePath;
 };
 
 #endif

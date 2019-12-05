@@ -19,26 +19,24 @@
  ***************************************************************************/
 
 #ifndef MIDSIDE_MAIN_WIN_H
-  #define MIDSIDE_MAIN_WIN_H
+#define MIDSIDE_MAIN_WIN_H
 
-#include <iostream>
-#include <string>
-
-#include <gtkmm/box.h>
 #include <gtkmm/alignment.h>
+#include <gtkmm/box.h>
 #include <gtkmm/label.h>
 
 #include <cmath>
+#include <iostream>
+#include <string>
 
-//LV2 UI header
+// LV2 UI header
 #include <lv2/lv2plug.in/ns/extensions/ui/ui.h>
 
-#include "mainwidget.h"
-#include "vuwidget.h"
 #include "knob2.h"
-#include "toggle_button.h"
+#include "mainwidget.h"
 #include "sidechainbox.h"
-
+#include "toggle_button.h"
+#include "vuwidget.h"
 
 #define PORT_AUDIO_IN_1 0
 #define PORT_AUDIO_IN_2 1
@@ -59,17 +57,16 @@
 
 using namespace sigc;
 
-class MidSideMainWindow : public MainWidget
-{
-  public:
+class MidSideMainWindow : public MainWidget {
+public:
     MidSideMainWindow(const char *uri, std::string bundlePath, bool isLR2MS);
-    virtual ~MidSideMainWindow();   
-    
+    virtual ~MidSideMainWindow();
+
     // Informing GUI about changes in the control ports
-    void gui_port_event(LV2UI_Handle ui, uint32_t port, uint32_t buffer_size, uint32_t format, const void * buffer)
-    {
-      float data = * static_cast<const float*>(buffer);
-      
+    void gui_port_event(LV2UI_Handle ui, uint32_t port, uint32_t buffer_size, uint32_t format,
+                        const void *buffer) {
+        float data = *static_cast<const float *>(buffer);
+
         // Checking if params are the same as specified in the LV2 documentation
         if (format != 0) {
             return;
@@ -79,62 +76,61 @@ class MidSideMainWindow : public MainWidget
         }
 
         // Updating values in GUI ========================================================
-        switch (port)
-        {
-	  case PORT_GAIN_IN_1:
-		m_InGain1->set_value(data);
-		break;
-	  
-	  case PORT_GAIN_IN_2:
-		m_InGain2->set_value(data);
-		break;
+        switch (port) {
+            case PORT_GAIN_IN_1:
+                m_InGain1->set_value(data);
+                break;
 
-	  case PORT_GAIN_OUT_1:
-		m_OutGain1->set_value(data);
-		break;
+            case PORT_GAIN_IN_2:
+                m_InGain2->set_value(data);
+                break;
 
-	  case PORT_GAIN_OUT_2:
-		m_OutGain2->set_value(data);
-		break;	  
-		
-	  case PORT_SOLO_IN_1:
-		m_InSolo1.set_active(data > 0.5);
-		break;
-		
-	  case PORT_SOLO_IN_2:
-		m_InSolo2.set_active(data > 0.5);
-		break;
-		
-	  case PORT_SOLO_OUT_1:
-		m_OutSolo1.set_active(data > 0.5);
-		break;
-	      
-	  case PORT_SOLO_OUT_2:
-		m_OutSolo2.set_active(data > 0.5);
-		break;  
-		
-	  case PORT_VU_IN_1:
-		m_InputVu1->setValue(0,data);
-		break;
-		
-	  case PORT_VU_IN_2:
-		m_InputVu2->setValue(0,data);
-		break;
-		
-	  case PORT_VU_OUT_1:
-		m_OutputVu1->setValue(0,data);
-		break;
-		
-	  case PORT_VU_OUT_2:
-		m_OutputVu2->setValue(0,data);
-		break;
-        }               
+            case PORT_GAIN_OUT_1:
+                m_OutGain1->set_value(data);
+                break;
+
+            case PORT_GAIN_OUT_2:
+                m_OutGain2->set_value(data);
+                break;
+
+            case PORT_SOLO_IN_1:
+                m_InSolo1.set_active(data > 0.5);
+                break;
+
+            case PORT_SOLO_IN_2:
+                m_InSolo2.set_active(data > 0.5);
+                break;
+
+            case PORT_SOLO_OUT_1:
+                m_OutSolo1.set_active(data > 0.5);
+                break;
+
+            case PORT_SOLO_OUT_2:
+                m_OutSolo2.set_active(data > 0.5);
+                break;
+
+            case PORT_VU_IN_1:
+                m_InputVu1->setValue(0, data);
+                break;
+
+            case PORT_VU_IN_2:
+                m_InputVu2->setValue(0, data);
+                break;
+
+            case PORT_VU_OUT_1:
+                m_OutputVu1->setValue(0, data);
+                break;
+
+            case PORT_VU_OUT_2:
+                m_OutputVu2->setValue(0, data);
+                break;
+        }
     }
 
     LV2UI_Controller controller;
     LV2UI_Write_Function write_function;
 
-  protected:
+protected:
     KnobWidget2 *m_InGain1, *m_InGain2, *m_OutGain1, *m_OutGain2;
     ToggleButton m_InSolo1, m_InSolo2, m_OutSolo1, m_OutSolo2;
     VUWidget *m_InputVu1, *m_InputVu2, *m_OutputVu1, *m_OutputVu2;
@@ -145,8 +141,8 @@ class MidSideMainWindow : public MainWidget
     Gtk::Alignment m_InVuAlng1, m_InVuAlng2, m_OutVuAlng1, m_OutVuAlng2;
     Gtk::Alignment m_InSoloAlng1, m_InSoloAlng2, m_OutSoloAlng1, m_OutSoloAlng2, m_labAlng;
     Gtk::Label m_LabTitle;
-    
-    //Signal Handlers
+
+    // Signal Handlers
     void onInGain1Change();
     void onInGain2Change();
     void onOutGain1Change();
@@ -155,12 +151,12 @@ class MidSideMainWindow : public MainWidget
     void onInSolo2Change();
     void onOutSolo1Change();
     void onOutSolo2Change();
-    
+
     void resetSoloState();
-    
-  private:
+
+private:
     std::string m_pluginUri;
-    std::string m_bundlePath;  
+    std::string m_bundlePath;
     bool m_bisLR2MS;
 };
 

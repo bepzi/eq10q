@@ -17,23 +17,21 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
- 
 
 #ifndef MAIN_WIDGET_H
-  #define MAIN_WIDGET_H
+#define MAIN_WIDGET_H
 
 #include <gtkmm/eventbox.h>
 
-class MainWidget : public Gtk::EventBox
-{
-  public:
+class MainWidget : public Gtk::EventBox {
+public:
     MainWidget();
     virtual ~MainWidget();
-    
-  protected:
-    //Override default signal handler:
+
+protected:
+    // Override default signal handler:
     virtual bool on_expose_event(GdkEventExpose* event);
-    
+
     virtual void on_realize();
     Gdk::Color m_bg_orgi;
 };

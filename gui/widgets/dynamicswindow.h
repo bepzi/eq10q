@@ -19,27 +19,26 @@
  ***************************************************************************/
 
 #ifndef DYN_MAIN_WIN_H
-  #define DYN_MAIN_WIN_H
+#define DYN_MAIN_WIN_H
 
+#include <gtkmm/alignment.h>
+#include <gtkmm/box.h>
+#include <gtkmm/image.h>
+#include <gtkmm/label.h>
+
+#include <cmath>
 #include <iostream>
 #include <string>
 
-#include <gtkmm/alignment.h> 
-#include <gtkmm/box.h>
-#include <gtkmm/image.h>
-#include <gtkmm/label.h> 
-
-#include <cmath>
-
-//LV2 UI header
+// LV2 UI header
 #include <lv2/lv2plug.in/ns/extensions/ui/ui.h>
 
-#include "mainwidget.h"
-#include "vuwidget.h"
-#include "knob2.h"
-#include "toggle_button.h"
 #include "dynplot.h"
+#include "knob2.h"
+#include "mainwidget.h"
 #include "sidechainbox.h"
+#include "toggle_button.h"
+#include "vuwidget.h"
 
 #define PORT_KEY_LISTEN 2
 #define PORT_THRESHOLD 3
@@ -58,137 +57,131 @@
 #define PORT_COMP_MODE 16
 #define PORT_PUNCH 17
 
-//Test print information, comment out for the final release
+// Test print information, comment out for the final release
 //#define PRINT_DEBUG_INFO
 
 using namespace sigc;
 
-class DynMainWindow : public MainWidget
-{
-  public:
-    DynMainWindow(const char *uri, std::string bundlePath, std::string title, bool isCompressor, bool hasSideChain);
-    virtual ~DynMainWindow();   
-    
+class DynMainWindow : public MainWidget {
+public:
+    DynMainWindow(const char *uri, std::string bundlePath, std::string title, bool isCompressor,
+                  bool hasSideChain);
+    virtual ~DynMainWindow();
+
     // Informing GUI about changes in the control ports
-    void gui_port_event(LV2UI_Handle ui, uint32_t port, uint32_t buffer_size, uint32_t format, const void * buffer)
-    {
-      float data = * static_cast<const float*>(buffer);
-      
-      #ifdef PRINT_DEBUG_INFO
-	std::cout<<"gui_port_event Entring....... "<<std::endl;
-      #endif
-      
+    void gui_port_event(LV2UI_Handle ui, uint32_t port, uint32_t buffer_size, uint32_t format,
+                        const void *buffer) {
+        float data = *static_cast<const float *>(buffer);
+
+#ifdef PRINT_DEBUG_INFO
+        std::cout << "gui_port_event Entring....... " << std::endl;
+#endif
+
         // Checking if params are the same as specified in the LV2 documentation
         if (format != 0) {
-	    #ifdef PRINT_DEBUG_INFO
-	      std::cout<<"\t-- Return Format != 0"<<std::endl;
-	    #endif
+#ifdef PRINT_DEBUG_INFO
+            std::cout << "\t-- Return Format != 0" << std::endl;
+#endif
             return;
         }
         if (buffer_size != 4) {
-	    #ifdef PRINT_DEBUG_INFO
-	      std::cout<<"\t-- Return buffer_size != 4"<<std::endl;
-	    #endif  
+#ifdef PRINT_DEBUG_INFO
+            std::cout << "\t-- Return buffer_size != 4" << std::endl;
+#endif
             return;
         }
 
         // Updating values in GUI ========================================================
-	switch (port)
-	{
-	  case PORT_KEY_LISTEN:
-	    m_KeyButton.set_active(data > 0.5);
-	  break;
-	  
-	  case PORT_THRESHOLD:
-	    m_InputVu->set_value_th(data);
-            m_Plot->set_threshold(data);
-	  break;
-	  
-	  case PORT_ATACK:
-	    m_Attack->set_value(data);
-	  break;
-	  
-	  case PORT_HOLD_MAKEUP:
-	    m_Hold_Makeup->set_value(data);
-            if(m_bIsCompressor)
-            {
-              m_Plot->set_makeup(data);
-            }
-	  break;
-	  
-	  case PORT_DECAY:
-	    m_Release->set_value(data);
-	  break;
-	  
-	  case PORT_RATIO:
-	    m_Ratio->set_value(data);
-	    m_Plot->set_ratio(data);
-	  break;
-	  
-	  case PORT_GAINREDUCTION:
-	    m_GainReductionVu->setValue(0,data);
-            m_Plot->set_gainreduction(data);
-	  break;
-	  
-	  case PORT_HPFFREQ:
-	    m_HPF->set_value(data);
-	  break;
-	  
-	  case PORT_LPFFREQ:
-	    m_LPF->set_value(data);
-	  break;
-	  
-	  case PORT_GAIN:
-	    m_InGainFader->set_value(data);
-	  break;
-	  
-	  case PORT_INVU:
-	    m_InputVu->setValue(0,data);
-            m_Plot->set_inputvu(data);
-	  break;
-	  
-	  case PORT_KNEE:
-              m_Knee->set_value(data);
-              m_Plot->set_knee(data);
-              break; 
-              
-          case PORT_DRY_WET:
-              m_DryWet->set_value(100.0*data); //In range of 0% to 100%
-            break;
-	    
-	  case PORT_FEEDBACK_RANGE_SCACTIVE:
-	    if(m_bIsCompressor)
-	    {
-	      m_FeedBackMode_SideChainActive.set_active(data > 0.5);
-	    }
-	    else
-	    {
-      	      m_Range->set_value(data);
-              m_Plot->set_range(data);
-	    }
-	    break;
-	    
-	  case PORT_COMP_MODE:
-	     m_OptoMode.set_active(data > 0.5);
-	    break;
-	    
-	  case PORT_PUNCH:
-	    m_Punch->set_value(100.0*data);  //In range of 0% to 100%
-	    break;
-	}       
-        
-	#ifdef PRINT_DEBUG_INFO	    
-	  std::cout<<"\t--  Return OK"<<std::endl;
-	#endif
-	
+        switch (port) {
+            case PORT_KEY_LISTEN:
+                m_KeyButton.set_active(data > 0.5);
+                break;
+
+            case PORT_THRESHOLD:
+                m_InputVu->set_value_th(data);
+                m_Plot->set_threshold(data);
+                break;
+
+            case PORT_ATACK:
+                m_Attack->set_value(data);
+                break;
+
+            case PORT_HOLD_MAKEUP:
+                m_Hold_Makeup->set_value(data);
+                if (m_bIsCompressor) {
+                    m_Plot->set_makeup(data);
+                }
+                break;
+
+            case PORT_DECAY:
+                m_Release->set_value(data);
+                break;
+
+            case PORT_RATIO:
+                m_Ratio->set_value(data);
+                m_Plot->set_ratio(data);
+                break;
+
+            case PORT_GAINREDUCTION:
+                m_GainReductionVu->setValue(0, data);
+                m_Plot->set_gainreduction(data);
+                break;
+
+            case PORT_HPFFREQ:
+                m_HPF->set_value(data);
+                break;
+
+            case PORT_LPFFREQ:
+                m_LPF->set_value(data);
+                break;
+
+            case PORT_GAIN:
+                m_InGainFader->set_value(data);
+                break;
+
+            case PORT_INVU:
+                m_InputVu->setValue(0, data);
+                m_Plot->set_inputvu(data);
+                break;
+
+            case PORT_KNEE:
+                m_Knee->set_value(data);
+                m_Plot->set_knee(data);
+                break;
+
+            case PORT_DRY_WET:
+                m_DryWet->set_value(100.0 * data);  // In range of 0% to 100%
+                break;
+
+            case PORT_FEEDBACK_RANGE_SCACTIVE:
+                if (m_bIsCompressor) {
+                    m_FeedBackMode_SideChainActive.set_active(data > 0.5);
+                } else {
+                    m_Range->set_value(data);
+                    m_Plot->set_range(data);
+                }
+                break;
+
+            case PORT_COMP_MODE:
+                m_OptoMode.set_active(data > 0.5);
+                break;
+
+            case PORT_PUNCH:
+                m_Punch->set_value(100.0 * data);  // In range of 0% to 100%
+                break;
+        }
+
+#ifdef PRINT_DEBUG_INFO
+        std::cout << "\t--  Return OK" << std::endl;
+#endif
     }
 
     LV2UI_Controller controller;
     LV2UI_Write_Function write_function;
 
-  protected:
+protected:
     VUWidget *m_InputVu;
-    VUWidget *m_GainReductionVu; 
+    VUWidget *m_GainReductionVu;
     KnobWidget2 *m_InGainFader;
     KnobWidget2 *m_Attack;
     KnobWidget2 *m_Hold_Makeup;
@@ -202,13 +195,14 @@ class DynMainWindow : public MainWidget
     ToggleButton m_KeyButton, m_FeedBackMode_SideChainActive, m_OptoMode;
     PlotDynCurve *m_Plot;
     SideChainBox m_SCBox;
-    Gtk::Alignment m_KeyButtonAlign, m_TitleAlign, m_sidchianAlign, m_keyPadding, m_FeedBackModeAlign, m_OptoModeAlign;
+    Gtk::Alignment m_KeyButtonAlign, m_TitleAlign, m_sidchianAlign, m_keyPadding,
+        m_FeedBackModeAlign, m_OptoModeAlign;
     Gtk::HBox m_VuBox, m_PlotBox, m_BalBox, m_MainBox, m_BotBox, m_SideChain2Box;
-    Gtk::VBox m_SideChainBox, m_TitleBox, m_DynBox, m_Main2Box, m_PlotLabelBox;  
+    Gtk::VBox m_SideChainBox, m_TitleBox, m_DynBox, m_Main2Box, m_PlotLabelBox;
     Gtk::Image *image_logo;
-    Gtk::Label m_LTitle; 
-    
-    //Signal Handlers
+    Gtk::Label m_LTitle;
+
+    // Signal Handlers
     void onGainChange();
     void onThresholdChange();
     void onRatioChange();
@@ -224,12 +218,11 @@ class DynMainWindow : public MainWidget
     void onFeedbackModeChange();
     void onModeCompressorChange();
     void onPunchChange();
-    
-  private:
+
+private:
     std::string m_pluginUri;
-    std::string m_bundlePath;  
+    std::string m_bundlePath;
     bool m_bIsCompressor;
 };
 
 #endif
-

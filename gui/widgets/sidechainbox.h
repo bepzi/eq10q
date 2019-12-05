@@ -17,23 +17,23 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
- 
- #ifndef SIDECHAIN_BOX_H
-  #define SIDECHAIN_BOX_H
-  
+
+#ifndef SIDECHAIN_BOX_H
+#define SIDECHAIN_BOX_H
+
 #include <gtkmm/eventbox.h>
 
-class SideChainBox : public Gtk::EventBox
-{
-  public:
-    SideChainBox( std::string sTitle = "Side-Chain", int top_padding = 20);
+class SideChainBox : public Gtk::EventBox {
+public:
+    SideChainBox(std::string sTitle = "Side-Chain", int top_padding = 20);
     virtual ~SideChainBox();
-    
+
     void set_label(const Glib::ustring& label);
-  protected:
+
+protected:
     virtual bool on_expose_event(GdkEventExpose* event);
-    
-  private:
+
+private:
     std::string m_title;
     int m_top_padding;
 };

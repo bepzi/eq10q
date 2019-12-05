@@ -19,16 +19,16 @@
  ***************************************************************************/
 
 #ifndef PIXMAP_COMBOBOX_H
-  #define PIXMAP_COMBOBOX_H
-  
-#include <iostream>
+#define PIXMAP_COMBOBOX_H
 
 #include <gtkmm/combobox.h>
-#include <gtkmm/liststore.h>
 #include <gtkmm/image.h>
+#include <gtkmm/liststore.h>
 #include <gtkmm/stock.h>
 
-#define RUTA_OFF  "combopix/off.png"
+#include <iostream>
+
+#define RUTA_OFF "combopix/off.png"
 #define RUTA_LPF1 "combopix/lpf1.png"
 #define RUTA_LPF2 "combopix/lpf2.png"
 #define RUTA_LPF3 "combopix/lpf3.png"
@@ -42,28 +42,23 @@
 #define RUTA_PEAK "combopix/peak.png"
 #define RUTA_NOTCH "combopix/notch.png"
 
-class PixMapCombo : public Gtk::ComboBox
-{
-  public:
+class PixMapCombo : public Gtk::ComboBox {
+public:
     PixMapCombo(const char *bundlePath);
     virtual ~PixMapCombo();
-    
-  protected:
-    class ModelColumns : public Gtk::TreeModel::ColumnRecord
-    {
-      public:
-        ModelColumns()
-        {
-          add(m_col_pix);
-        }
-        
+
+protected:
+    class ModelColumns : public Gtk::TreeModel::ColumnRecord {
+    public:
+        ModelColumns() { add(m_col_pix); }
+
         Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf> > m_col_pix;
-     };
-    
+    };
+
     ModelColumns m_Columns;
-    Glib::RefPtr<Gtk::ListStore> m_refTreeModel; 
-    
-  private:
+    Glib::RefPtr<Gtk::ListStore> m_refTreeModel;
+
+private:
     std::string m_bundlePath;
 };
 #endif

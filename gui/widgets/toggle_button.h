@@ -19,23 +19,24 @@
  ***************************************************************************/
 
 #ifndef EQ10Q_TOGGLE_BUTTON_H
-  #define EQ10Q_TOGGLE_BUTTON_H
+#define EQ10Q_TOGGLE_BUTTON_H
 
 #include "button.h"
 
-class ToggleButton : public Button
-{
-  public:
-    ToggleButton ( const Glib::ustring& label = "" );
+class ToggleButton : public Button {
+public:
+    ToggleButton(const Glib::ustring& label = "");
     virtual ~ToggleButton();
     virtual bool get_active();
     virtual void set_active(bool active);
-    static void drawLedBtn(Cairo::RefPtr<Cairo::Context> cr, bool focus, bool enabled, std::string text, int margin, int radius, double red = 0.8, double green = 0.8, double blue = 0.5);
-  
-  protected:
+    static void drawLedBtn(Cairo::RefPtr<Cairo::Context> cr, bool focus, bool enabled,
+                           std::string text, int margin, int radius, double red = 0.8,
+                           double green = 0.8, double blue = 0.5);
+
+protected:
     virtual bool on_button_release_event(GdkEventButton* event);
-    //Override default signal handler:
-    virtual bool on_expose_event(GdkEventExpose* event);      
+    // Override default signal handler:
+    virtual bool on_expose_event(GdkEventExpose* event);
     bool m_bActive;
 };
 

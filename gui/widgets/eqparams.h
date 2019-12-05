@@ -19,22 +19,20 @@
  ***************************************************************************/
 
 #ifndef EQ_PARAMS_H
-  #define EQ_PARAMS_H
-class EqParams
-{
-  public:
+#define EQ_PARAMS_H
+class EqParams {
+public:
     EqParams(int iNumBands);
     virtual ~EqParams();
-    
-    typedef struct
-    {
-      float fGain;
-      float fFreq;
-      float fQ;
-      int iType;
-      bool bIsEnabled;
+
+    typedef struct {
+        float fGain;
+        float fFreq;
+        float fQ;
+        int iType;
+        bool bIsEnabled;
     } EqBandStruct;
-    
+
     void setInputGain(float fInGain);
     void setOutputGain(float fOutGain);
     void setBandGain(int iBand, float fGain);
@@ -42,7 +40,7 @@ class EqParams
     void setBandQ(int iBand, float fQ);
     void setBandType(int iBand, int iType);
     void setBandEnabled(int iBand, bool bIsEnabled);
-    
+
     float getInputGain();
     float getOutputGain();
     float getBandGain(int iBand);
@@ -50,15 +48,15 @@ class EqParams
     float getBandQ(int iBand);
     int getBandType(int iBand);
     bool getBandEnabled(int iBand);
-    
+
     void loadFromTtlFile(const char *uri);
     bool loadFromFile(const char *path);
     void saveToFile(const char *path);
-  
-  private:
+
+private:
     int m_iNumberOfBands;
     EqBandStruct *m_ptr_BandArray;
     float m_fInGain;
-    float m_fOutGain;    
+    float m_fOutGain;
 };
 #endif

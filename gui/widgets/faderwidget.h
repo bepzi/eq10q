@@ -19,12 +19,12 @@
  ***************************************************************************/
 
 #ifndef FADER_WIDGET_H
-  #define FADER_WIDGET_H
+#define FADER_WIDGET_H
 
-#include <gtkmm/drawingarea.h>
+#include <cairomm/surface.h>
 #include <gdkmm/pixbuf.h>
 #include <glibmm/refptr.h>
-#include <cairomm/surface.h>
+#include <gtkmm/drawingarea.h>
 
 #define FADER_ICON_FILE "knobs/fader_dark.png"
 #define FADER_INITAL_HIGHT 350
@@ -32,48 +32,47 @@
 #define SCROLL_EVENT_PERCENT 0.02
 #define TITLE_OFFSET 12
 
-class  FaderWidget : public Gtk::DrawingArea
-{
-  public:
-    FaderWidget(double dMax, double dMin, const char *bundlePath, Glib::ustring title);
+class FaderWidget : public Gtk::DrawingArea {
+public:
+    FaderWidget(double dMax, double dMin, const char* bundlePath, Glib::ustring title);
     virtual ~FaderWidget();
-    
-    //Data accessors
+
+    // Data accessors
     void set_value(double value);
     double get_value();
-    
+
     void set_range(double max, double min);
     double get_max();
     double get_min();
-    
-    //signal accessor:
+
+    // signal accessor:
     typedef sigc::signal<void> signal_FaderChanged;
     signal_FaderChanged signal_changed();
-    
-  protected:
-      //Override default signal handler:
-      virtual bool on_expose_event(GdkEventExpose* event);
-      
-      //Mouse grab signal handlers
-      virtual bool on_button_press_event(GdkEventButton* event);
-      virtual bool on_button_release_event(GdkEventButton* event);
-      virtual bool on_scrollwheel_event(GdkEventScroll* event);
-      virtual bool on_mouse_motion_event(GdkEventMotion* event);
-      
-      void redraw();
-      
-  private:
-      bool bMotionIsConnected;
-      int yFaderPosition;
-      double m_value, m_max, m_min;
-      sigc::connection m_motion_connection;
-      Cairo::RefPtr<Cairo::ImageSurface> m_image_surface_ptr;
-      Glib::RefPtr<Gdk::Pixbuf> m_image_ptr;
-      Cairo::RefPtr< Cairo::Context> m_image_context_ptr;
-      std::string m_bundlePath;
-      Glib::ustring m_title;
-      
-      //Fader change signal
-      signal_FaderChanged m_FaderChangedSignal;
+
+protected:
+    // Override default signal handler:
+    virtual bool on_expose_event(GdkEventExpose* event);
+
+    // Mouse grab signal handlers
+    virtual bool on_button_press_event(GdkEventButton* event);
+    virtual bool on_button_release_event(GdkEventButton* event);
+    virtual bool on_scrollwheel_event(GdkEventScroll* event);
+    virtual bool on_mouse_motion_event(GdkEventMotion* event);
+
+    void redraw();
+
+private:
+    bool bMotionIsConnected;
+    int yFaderPosition;
+    double m_value, m_max, m_min;
+    sigc::connection m_motion_connection;
+    Cairo::RefPtr<Cairo::ImageSurface> m_image_surface_ptr;
+    Glib::RefPtr<Gdk::Pixbuf> m_image_ptr;
+    Cairo::RefPtr<Cairo::Context> m_image_context_ptr;
+    std::string m_bundlePath;
+    Glib::ustring m_title;
+
+    // Fader change signal
+    signal_FaderChanged m_FaderChangedSignal;
 };
 #endif

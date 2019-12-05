@@ -17,20 +17,20 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
- 
+
 #ifndef EQ10Q_AB_BUTTON_H
- #define EQ10Q_AB_BUTTON_H
+#define EQ10Q_AB_BUTTON_H
 
 #include "toggle_button.h"
- 
-class AbButton : public ToggleButton
-{
+
+class AbButton : public ToggleButton {
 public:
     AbButton();
     virtual ~AbButton();
+
 protected:
-    //Override default signal handler:
-    virtual bool on_expose_event(GdkEventExpose* event);    
+    // Override default signal handler:
+    virtual bool on_expose_event(GdkEventExpose* event);
 };
- 
+
 #endif

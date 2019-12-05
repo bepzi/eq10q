@@ -22,21 +22,21 @@
 This file contains the parameter interpolation
 ****************************************************************************/
 
-#ifndef  PARAM_INTERPOLATOR_H
-  #define PARAM_INTERPOLATOR_H
-  
-#include <stdlib.h>
+#ifndef PARAM_INTERPOLATOR_H
+#define PARAM_INTERPOLATOR_H
+
 #include <math.h>
+#include <stdlib.h>
 
 #define STEP_TIME_MS 60.0f
 #define INTER_OF_DEADBAND 0.001f
-#define INTERPOLATOR_CALC_K(x) (4e3f / (x * STEP_TIME_MS)) //Where X is sample_rate
+#define INTERPOLATOR_CALC_K(x) (4e3f / (x * STEP_TIME_MS))  // Where X is sample_rate
 
-static inline float computeParamInterpolation(float target, float current, float K, float enableInterpol)
-{
-  float res =  current + K*(target - current);
-  res = fabs(res - target) < fabs(INTER_OF_DEADBAND*target) ? target : res;
-  res = enableInterpol*res + (1.0f - enableInterpol)*target;
-  return(res);
+static inline float computeParamInterpolation(float target, float current, float K,
+                                              float enableInterpol) {
+    float res = current + K * (target - current);
+    res = fabs(res - target) < fabs(INTER_OF_DEADBAND * target) ? target : res;
+    res = enableInterpol * res + (1.0f - enableInterpol) * target;
+    return (res);
 }
 #endif

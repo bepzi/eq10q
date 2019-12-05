@@ -25,26 +25,25 @@ This file contains the filter definitions
 ****************************************************************************/
 
 #ifndef FILTER_TYPE_API_H
-  #define FILTER_TYPE_API_H
-  
-typedef enum
-{
-  NOT_SET,
-  LPF_ORDER_1,
-  LPF_ORDER_2,
-  LPF_ORDER_3,
-  LPF_ORDER_4,
-  HPF_ORDER_1,
-  HPF_ORDER_2,
-  HPF_ORDER_3,
-  HPF_ORDER_4,
-  LOW_SHELF,
-  HIGH_SHELF,
-  PEAK,
-  NOTCH,
-}FilterType;
+#define FILTER_TYPE_API_H
 
-//Convert int  to FilterType
+typedef enum {
+    NOT_SET,
+    LPF_ORDER_1,
+    LPF_ORDER_2,
+    LPF_ORDER_3,
+    LPF_ORDER_4,
+    HPF_ORDER_1,
+    HPF_ORDER_2,
+    HPF_ORDER_3,
+    HPF_ORDER_4,
+    LOW_SHELF,
+    HIGH_SHELF,
+    PEAK,
+    NOTCH,
+} FilterType;
+
+// Convert int  to FilterType
 FilterType int2FilterType(int iType);
 
 #endif

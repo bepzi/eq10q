@@ -19,36 +19,32 @@
  ***************************************************************************/
 
 //#include <stdio.h>
-#include <stdlib.h>
 #include "filter.h"
 
-//Initialize filter
-Filter *FilterInit(double rate)
-{
-  Filter *filter = (Filter *)malloc(sizeof(Filter));
-  filter->fs= rate;
-  filter->gain = 1.0f;
-  filter->freq = 100.0f;
-  filter->q = 1.0f;
-  filter->enable = 0.0f;
-  filter->iType = 0;
-  
-  //Interpolations
-  filter->InterK = INTERPOLATOR_CALC_K((float)rate);
-  filter->useInterpolation = 1.0f;
-  
-  return filter;
+#include <stdlib.h>
+
+// Initialize filter
+Filter *FilterInit(double rate) {
+    Filter *filter = (Filter *)malloc(sizeof(Filter));
+    filter->fs = rate;
+    filter->gain = 1.0f;
+    filter->freq = 100.0f;
+    filter->q = 1.0f;
+    filter->enable = 0.0f;
+    filter->iType = 0;
+
+    // Interpolations
+    filter->InterK = INTERPOLATOR_CALC_K((float)rate);
+    filter->useInterpolation = 1.0f;
+
+    return filter;
 }
 
-//Destroy a filter instance
-void FilterClean(Filter *filter)
-{ 
-  free(filter);
-}
+// Destroy a filter instance
+void FilterClean(Filter *filter) { free(filter); }
 
-//Clean buffers
-void flushBuffers(Buffers *buf)
-{
+// Clean buffers
+void flushBuffers(Buffers *buf) {
     buf->buf_0 = 0.0;
     buf->buf_1 = 0.0;
     buf->buf_2 = 0.0;

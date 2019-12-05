@@ -19,23 +19,23 @@
  ***************************************************************************/
 
 #ifndef SET_WIDGET_COLORS_H
-  #define SET_WIDGET_COLORS_H
+#define SET_WIDGET_COLORS_H
 
 #include <gtkmm/button.h>
 #include <gtkmm/frame.h>
 #include <gtkmm/widget.h>
 
-class SetWidgetColors
-{
-  public:
+class SetWidgetColors {
+public:
     SetWidgetColors();
     void setButtonColors(Gtk::Button* widget);
     void setGenericWidgetColors(Gtk::Widget* widget);
     void setBandFrameColor(Gtk::Frame* widget, int band);
     Glib::RefPtr<Gtk::Style> getPlainButtonStyle();
-    
-  private:
-    Gdk::Color m_Button_BgColorActive, m_Button_BgColorInactive, m_Button_BgColorNormal, m_Button_BgColorOver, m_Button_FgColor, m_Button_TextColor;
+
+private:
+    Gdk::Color m_Button_BgColorActive, m_Button_BgColorInactive, m_Button_BgColorNormal,
+        m_Button_BgColorOver, m_Button_FgColor, m_Button_TextColor;
     Gdk::Color m_BandsColors[10];
     Glib::RefPtr<Gtk::Style> PlainButtonStyle;
 };

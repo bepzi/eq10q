@@ -19,13 +19,12 @@
  ***************************************************************************/
 
 #ifndef PLOT_DYN_CURVE_H
-  #define PLOT_DYN_CURVE_H
-  
+#define PLOT_DYN_CURVE_H
+
 #include <gtkmm/drawingarea.h>
 
-class PlotDynCurve : public Gtk::DrawingArea
-{
-  public:
+class PlotDynCurve : public Gtk::DrawingArea {
+public:
     PlotDynCurve(bool isCompressor);
     virtual ~PlotDynCurve();
     void set_ratio(double ratio);
@@ -35,17 +34,17 @@ class PlotDynCurve : public Gtk::DrawingArea
     void set_makeup(double makeup);
     void set_gainreduction(double gainreduction);
     void set_inputvu(double inputvu);
-    
-  protected:
-    //Override default signal handler:
+
+protected:
+    // Override default signal handler:
     virtual bool on_expose_event(GdkEventExpose* event);
-    virtual void redraw();  
-    
-  private:
-    int width, height; 
+    virtual void redraw();
+
+private:
+    int width, height;
     double m_Ratio, m_Range, m_Knee, m_Threshold, m_Makeup, m_GainReduction, m_InputVu;
     bool m_bIsCompressor;
-    
+
     double dB2PixelsX(double db);
     double dB2PixelsY(double db);
 };
