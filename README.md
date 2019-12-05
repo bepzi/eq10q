@@ -32,7 +32,7 @@ folder:
 ``` bash
 mkdir build/
 cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..
 sudo make install
 ```
 
@@ -40,7 +40,7 @@ To run EQ10Q you need a LV2 host, such as Ardour: http://ardour.org
 
 ## Uninstallation
 
-Remove the EQ10Q directory, by default /usr/lib/lv2/sapistaEQv2.lv2
+Remove the EQ10Q directory, by default `/usr/lib/lv2/sapistaEQv2.lv2`
 
 ## Copyright
 
