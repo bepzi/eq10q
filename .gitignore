@@ -1,6 +1,9 @@
 build/
 bin/
 
+cmake-build-debug/
+.idea/
+
 compressor_mono.c
 compressor_mono_sc.c
 compressor_stereo.c
